@@ -51,7 +51,7 @@ class ConnectionParameters(object):
       Defaults to PlainCredentials for the guest user.
     - channel_max: Maximum number of channels to allow, defaults to 0 for None
     - frame_max: The maximum byte size for an AMQP frame. Defaults to 131072
-    - heartbeat: Turn heartbeat checking on or off. Defaults to False.
+    - heartbeat: Heartbeat Interval. 0 for heartbeat off.
     """
     def __init__(self,
                  host='localhost',
@@ -60,7 +60,7 @@ class ConnectionParameters(object):
                  credentials=None,
                  channel_max=0,
                  frame_max=spec.FRAME_MAX_SIZE,
-                 heartbeat=False,
+                 heartbeat=0,
                  ssl=False,
                  ssl_options=None,
                  connection_attempts=1,
@@ -551,7 +551,7 @@ class Connection(object):
 
     def add_backpressure_callback(self, callback):
         """
-        Add a callback notification when we think backpressue is being applied
+        Add a callback notification when we think backpressure is being applied
         due to the size of the output buffer being exceeded.
         """
         self.callbacks.add(0, 'backpressure', callback, False)
